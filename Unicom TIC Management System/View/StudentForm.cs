@@ -29,7 +29,7 @@ namespace Unicom_TIC_Management_System.View
         public StudentForm()
         {
             InitializeComponent();
-            LoadCourses();
+            DisplayCourses();
         }
 
 
@@ -228,15 +228,15 @@ namespace Unicom_TIC_Management_System.View
         {
             if (selectedStudentID == -1)
             {
-                MessageBox.Show("Please select a user to delete.");
+                MessageBox.Show("Please, you should select a user to delete.");
                 return;
             }
 
-            var confirm = MessageBox.Show("Are you sure to delete this user?", "Confirm", MessageBoxButtons.YesNo);
+            var confirm = MessageBox.Show("Do you want to delete this user?", "Confirm", MessageBoxButtons.YesNo);
             if (confirm == DialogResult.Yes)
             {
                 StudentController.DeleteStudent(selectedStudentID);
-                LoadStudents();
+                DisplayStudents();
                 ClearInputs();
             }
         }
@@ -251,7 +251,7 @@ namespace Unicom_TIC_Management_System.View
             };
 
             StudentController.AddStudent(student);
-            LoadStudents();
+            DisplayStudents();
             ClearInputs();
 
         }
@@ -271,13 +271,13 @@ namespace Unicom_TIC_Management_System.View
                 cmbCourse.SelectedValue = Convert.ToInt32(row.Cells["CourseID"].Value);
             }
         }
-        private void LoadStudents()
+        private void DisplayStudents()
         {
             dgvstudents.DataSource = null;
             dgvstudents.DataSource = StudentController.GetAllStudents();
         }
         private CourseController courseController = new CourseController();
-        private void LoadCourses()
+        private void DisplayCourses()
         {
             var courses = courseController.GetAllCourses();
             cmbCourse.DataSource = courses;
@@ -314,7 +314,7 @@ namespace Unicom_TIC_Management_System.View
         {
             if (selectedStudentID == -1)
             {
-                MessageBox.Show("Please select a user to update.");
+                MessageBox.Show("Select a student record to update.");
                 return;
             }
 
@@ -328,7 +328,7 @@ namespace Unicom_TIC_Management_System.View
             };
 
             StudentController.UpdateStudent(student);
-            LoadStudents();
+            DisplayStudents();
             ClearInputs();
         }
 

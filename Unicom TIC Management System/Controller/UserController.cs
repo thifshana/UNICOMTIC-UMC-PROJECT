@@ -11,14 +11,14 @@ namespace Unicom_TIC_Management_System.Controllers
         // CREATE
         public static void AddUser(User user)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO User (Username, Password, Role) VALUES (@Username, @Password, @Role)";
-                cmd.Parameters.AddWithValue("@Username", user.Username);
-                cmd.Parameters.AddWithValue("@Password", user.Password);
-                cmd.Parameters.AddWithValue("@Role", user.Role);
-                cmd.ExecuteNonQuery();
+                var command = connect.CreateCommand();
+                command.CommandText = "INSERT INTO User (Username, Password, Role) VALUES (@Username, @Password, @Role)";
+                command.Parameters.AddWithValue("@Username", user.Username);
+                command.Parameters.AddWithValue("@Password", user.Password);
+                command.Parameters.AddWithValue("@Role", user.Role);
+                command.ExecuteNonQuery();
             }
         }
 
@@ -27,21 +27,21 @@ namespace Unicom_TIC_Management_System.Controllers
         {
             var users = new List<User>();
 
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM User";
+                var command = connect.CreateCommand();
+                command.CommandText = "SELECT * FROM User";
 
-                using (var reader = cmd.ExecuteReader())
+                using (var read = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (read.Read())
                     {
                         users.Add(new User
                         {
-                            UserID = Convert.ToInt32(reader["UserID"]),
-                            Username = reader["Username"].ToString(),
-                            Password = reader["Password"].ToString(),
-                            Role = reader["Role"].ToString()
+                            UserID = Convert.ToInt32(read["UserID"]),
+                            Username = read["Username"].ToString(),
+                            Password = read["Password"].ToString(),
+                            Role = read["Role"].ToString()
                         });
                     }
                 }
@@ -52,24 +52,24 @@ namespace Unicom_TIC_Management_System.Controllers
 
         public static User AuthenticateUser(string username, string password, string role)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM User WHERE Username = @Username AND Password = @Password AND Role = @Role";
-                cmd.Parameters.AddWithValue("@Username", username);
-                cmd.Parameters.AddWithValue("@Password", password);
-                cmd.Parameters.AddWithValue("@Role", role);
+                var command = connect.CreateCommand();
+                command.CommandText = "SELECT * FROM User WHERE Username = @Username AND Password = @Password AND Role = @Role";
+                command.Parameters.AddWithValue("@Username", username);
+                command.Parameters.AddWithValue("@Password", password);
+                command.Parameters.AddWithValue("@Role", role);
 
-                using (var reader = cmd.ExecuteReader())
+                using (var read = command.ExecuteReader())
                 {
-                    if (reader.Read())
+                    if (read.Read())
                     {
                         return new User
                         {
-                            UserID = Convert.ToInt32(reader["UserID"]),
-                            Username = reader["Username"].ToString(),
-                            Password = reader["Password"].ToString(),
-                            Role = reader["Role"].ToString()
+                            UserID = Convert.ToInt32(read["UserID"]),
+                            Username = read["Username"].ToString(),
+                            Password = read["Password"].ToString(),
+                            Role = read["Role"].ToString()
                         };
                     }
                 }
@@ -82,52 +82,52 @@ namespace Unicom_TIC_Management_System.Controllers
         // UPDATE
         public static void UpdateUser(User user)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = @"
+                var command = connect.CreateCommand();
+                command.CommandText = @"
                     UPDATE User 
                     SET Username = @Username, Password = @Password, Role = @Role
                     WHERE UserID = @UserID";
-                cmd.Parameters.AddWithValue("@Username", user.Username);
-                cmd.Parameters.AddWithValue("@Password", user.Password);
-                cmd.Parameters.AddWithValue("@Role", user.Role);
-                cmd.Parameters.AddWithValue("@UserID", user.UserID);
-                cmd.ExecuteNonQuery();
+                command.Parameters.AddWithValue("@Username", user.Username);
+                command.Parameters.AddWithValue("@Password", user.Password);
+                command.Parameters.AddWithValue("@Role", user.Role);
+                command.Parameters.AddWithValue("@UserID", user.UserID);
+                command.ExecuteNonQuery();
             }
         }
 
         // DELETE
         public static void DeleteUser(int userId)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM User WHERE UserID = @UserID";
-                cmd.Parameters.AddWithValue("@UserID", userId);
-                cmd.ExecuteNonQuery();
+                var command = connect.CreateCommand();
+                command.CommandText = "DELETE FROM User WHERE UserID = @UserID";
+                command.Parameters.AddWithValue("@UserID", userId);
+                command.ExecuteNonQuery();
             }
         }
 
         // GET BY ID (Optional)
         public static User GetUserById(int userId)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM User WHERE UserID = @UserID";
-                cmd.Parameters.AddWithValue("@UserID", userId);
+                var command = connect.CreateCommand();
+                command.CommandText = "SELECT * FROM User WHERE UserID = @UserID";
+                command.Parameters.AddWithValue("@UserID", userId);
 
-                using (var reader = cmd.ExecuteReader())
+                using (var read = command.ExecuteReader())
                 {
-                    if (reader.Read())
+                    if (read.Read())
                     {
                         return new User
                         {
-                            UserID = Convert.ToInt32(reader["UserID"]),
-                            Username = reader["Username"].ToString(),
-                            Password = reader["Password"].ToString(),
-                            Role = reader["Role"].ToString()
+                            UserID = Convert.ToInt32(read["UserID"]),
+                            Username = read["Username"].ToString(),
+                            Password = read["Password"].ToString(),
+                            Role = read["Role"].ToString()
                         };
                     }
                 }

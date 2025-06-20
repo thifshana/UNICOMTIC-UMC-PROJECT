@@ -16,15 +16,15 @@ namespace Unicom_TIC_Management_System.View
     {
 
         private SubjectController subjectController = new SubjectController();
-        private CourseController courseController = new CourseController(); // optional if using dropdown
+        private CourseController courseController = new CourseController(); 
 
         public SubjectForm()
         {
             InitializeComponent();
-            LoadCourses();
-            LoadSubjects();
+            DisplayCourses();
+            DisplaySubjects();
         }
-        private void LoadCourses()
+        private void DisplayCourses()
         {
             var courses = courseController.GetAllCourses();
             cmbCourseID.DataSource = courses;
@@ -32,7 +32,7 @@ namespace Unicom_TIC_Management_System.View
             cmbCourseID.ValueMember = "CourseID";
         }
 
-        private void LoadSubjects()
+        private void DisplaySubjects()
         {
             dgvSubjects.DataSource = null;
             dgvSubjects.DataSource = subjectController.GetAllSubjects();
@@ -65,7 +65,7 @@ namespace Unicom_TIC_Management_System.View
         {
             if (string.IsNullOrWhiteSpace(txtSubjectName.Text))
             {
-                MessageBox.Show("Please enter a subject name.");
+                MessageBox.Show("Subject name cannot be empty.");
                 return;
             }
 
@@ -76,8 +76,8 @@ namespace Unicom_TIC_Management_System.View
             };
 
             subjectController.AddSubject(subject);
-            MessageBox.Show("Subject added successfully!");
-            LoadSubjects();
+            MessageBox.Show("Subject added!");
+            DisplaySubjects();
             ClearFields();
         }
 
@@ -95,7 +95,7 @@ namespace Unicom_TIC_Management_System.View
         {
             if (dgvSubjects.CurrentRow == null)
             {
-                MessageBox.Show("Please select a subject to update.");
+                MessageBox.Show("Please, you should  select a subject to update.");
                 return;
             }
 
@@ -109,8 +109,8 @@ namespace Unicom_TIC_Management_System.View
             };
 
             subjectController.UpdateSubject(subject);
-            MessageBox.Show("Subject updated successfully!");
-            LoadSubjects();
+            MessageBox.Show("Subject updated!");
+            DisplaySubjects();
             ClearFields();
         }
 
@@ -118,14 +118,14 @@ namespace Unicom_TIC_Management_System.View
         {
             if (dgvSubjects.CurrentRow == null)
             {
-                MessageBox.Show("Please select a subject to delete.");
+                MessageBox.Show("Please, you should  select a subject to delete.");
                 return;
             }
 
             int subjectId = Convert.ToInt32(dgvSubjects.CurrentRow.Cells["SubjectID"].Value);
             subjectController.DeleteSubject(subjectId);
-            MessageBox.Show("Subject deleted successfully!");
-            LoadSubjects();
+            MessageBox.Show("Subject deleted!");
+            DisplaySubjects();
             ClearFields();
         }
 

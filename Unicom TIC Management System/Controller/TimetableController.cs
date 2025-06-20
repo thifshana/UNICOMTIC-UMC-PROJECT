@@ -13,18 +13,18 @@ namespace Unicom_TIC_Management_System.Controller
         // ✅ CREATE Timetable
         public void Create(Timetable timetable)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = @"
+                var command = connect.CreateCommand();
+                command.CommandText = @"
                     INSERT INTO Timetable (SubjectID, TimeSlot, RoomID)
                     VALUES (@subjectID, @timeSlot, @roomID)";
 
-                cmd.Parameters.AddWithValue("@subjectID", timetable.SubjectID);
-                cmd.Parameters.AddWithValue("@timeSlot", timetable.TimeSlot);
-                cmd.Parameters.AddWithValue("@roomID", timetable.RoomID);
+                command.Parameters.AddWithValue("@subjectID", timetable.SubjectID);
+                command.Parameters.AddWithValue("@timeSlot", timetable.TimeSlot);
+                command.Parameters.AddWithValue("@roomID", timetable.RoomID);
 
-                cmd.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             }
         }
 
@@ -33,21 +33,21 @@ namespace Unicom_TIC_Management_System.Controller
         {
             var list = new List<Timetable>();
 
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM Timetable";
+                var command = connect.CreateCommand();
+                command.CommandText = "SELECT * FROM Timetable";
 
-                using (var reader = cmd.ExecuteReader())
+                using (var read = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (read.Read())
                     {
                         list.Add(new Timetable
                         {
-                            TimetableID = Convert.ToInt32(reader["TimetableID"]),
-                            SubjectID = Convert.ToInt32(reader["SubjectID"]),
-                            TimeSlot = reader["TimeSlot"].ToString(),
-                            RoomID = Convert.ToInt32(reader["RoomID"])
+                            TimetableID = Convert.ToInt32(read["TimetableID"]),
+                            SubjectID = Convert.ToInt32(read["SubjectID"]),
+                            TimeSlot = read["TimeSlot"].ToString(),
+                            RoomID = Convert.ToInt32(read["RoomID"])
                         });
                     }
                 }
@@ -59,57 +59,57 @@ namespace Unicom_TIC_Management_System.Controller
         // ✅ UPDATE Timetable
         public void Update(Timetable timetable)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = @"
+                var command = connect.CreateCommand();
+                command.CommandText = @"
                     UPDATE Timetable 
                     SET SubjectID = @subjectID,
                         TimeSlot = @timeSlot,
                         RoomID = @roomID
                     WHERE TimetableID = @timetableID";
 
-                cmd.Parameters.AddWithValue("@subjectID", timetable.SubjectID);
-                cmd.Parameters.AddWithValue("@timeSlot", timetable.TimeSlot);
-                cmd.Parameters.AddWithValue("@roomID", timetable.RoomID);
-                cmd.Parameters.AddWithValue("@timetableID", timetable.TimetableID);
+                command.Parameters.AddWithValue("@subjectID", timetable.SubjectID);
+                command.Parameters.AddWithValue("@timeSlot", timetable.TimeSlot);
+                command.Parameters.AddWithValue("@roomID", timetable.RoomID);
+                command.Parameters.AddWithValue("@timetableID", timetable.TimetableID);
 
-                cmd.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             }
         }
 
         // ✅ DELETE Timetable
         public void Delete(int timetableID)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM Timetable WHERE TimetableID = @id";
-                cmd.Parameters.AddWithValue("@id", timetableID);
+                var command = connect.CreateCommand();
+                command.CommandText = "DELETE FROM Timetable WHERE TimetableID = @id";
+                command.Parameters.AddWithValue("@id", timetableID);
 
-                cmd.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             }
         }
 
         // ✅ GET Timetable by ID
         public Timetable GetById(int id)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM Timetable WHERE TimetableID = @id";
-                cmd.Parameters.AddWithValue("@id", id);
+                var command = connect.CreateCommand();
+                command.CommandText = "SELECT * FROM Timetable WHERE TimetableID = @id";
+                command.Parameters.AddWithValue("@id", id);
 
-                using (var reader = cmd.ExecuteReader())
+                using (var read = command.ExecuteReader())
                 {
-                    if (reader.Read())
+                    if (read.Read())
                     {
                         return new Timetable
                         {
-                            TimetableID = Convert.ToInt32(reader["TimetableID"]),
-                            SubjectID = Convert.ToInt32(reader["SubjectID"]),
-                            TimeSlot = reader["TimeSlot"].ToString(),
-                            RoomID = Convert.ToInt32(reader["RoomID"])
+                            TimetableID = Convert.ToInt32(read["TimetableID"]),
+                            SubjectID = Convert.ToInt32(read["SubjectID"]),
+                            TimeSlot = read["TimeSlot"].ToString(),
+                            RoomID = Convert.ToInt32(read["RoomID"])
                         };
                     }
                 }

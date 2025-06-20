@@ -49,9 +49,10 @@
             this.Roomname.BackColor = System.Drawing.Color.LightPink;
             this.Roomname.Font = new System.Drawing.Font("Forte", 9.75F);
             this.Roomname.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Roomname.Location = new System.Drawing.Point(29, 39);
+            this.Roomname.Location = new System.Drawing.Point(44, 60);
+            this.Roomname.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Roomname.Name = "Roomname";
-            this.Roomname.Size = new System.Drawing.Size(82, 14);
+            this.Roomname.Size = new System.Drawing.Size(127, 22);
             this.Roomname.TabIndex = 0;
             this.Roomname.Text = "Room Name :";
             // 
@@ -61,9 +62,10 @@
             this.RoomType.BackColor = System.Drawing.Color.LightPink;
             this.RoomType.Font = new System.Drawing.Font("Forte", 9.75F);
             this.RoomType.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.RoomType.Location = new System.Drawing.Point(29, 97);
+            this.RoomType.Location = new System.Drawing.Point(44, 149);
+            this.RoomType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.RoomType.Name = "RoomType";
-            this.RoomType.Size = new System.Drawing.Size(75, 14);
+            this.RoomType.Size = new System.Drawing.Size(115, 22);
             this.RoomType.TabIndex = 2;
             this.RoomType.Text = "Room Type :";
             // 
@@ -71,9 +73,10 @@
             // 
             this.txtRoomName.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.txtRoomName.Font = new System.Drawing.Font("Forte", 9.75F);
-            this.txtRoomName.Location = new System.Drawing.Point(144, 39);
+            this.txtRoomName.Location = new System.Drawing.Point(216, 60);
+            this.txtRoomName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtRoomName.Name = "txtRoomName";
-            this.txtRoomName.Size = new System.Drawing.Size(308, 25);
+            this.txtRoomName.Size = new System.Drawing.Size(460, 34);
             this.txtRoomName.TabIndex = 3;
             this.txtRoomName.TextChanged += new System.EventHandler(this.txtRoomName_TextChanged);
             // 
@@ -82,11 +85,12 @@
             this.cmbRoomType.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.cmbRoomType.Font = new System.Drawing.Font("Forte", 9.75F);
             this.cmbRoomType.FormattingEnabled = true;
-            this.cmbRoomType.Location = new System.Drawing.Point(144, 97);
+            this.cmbRoomType.Location = new System.Drawing.Point(216, 149);
+            this.cmbRoomType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbRoomType.Name = "cmbRoomType";
-            this.cmbRoomType.Size = new System.Drawing.Size(308, 22);
+            this.cmbRoomType.Size = new System.Drawing.Size(460, 30);
             this.cmbRoomType.TabIndex = 4;
-            this.cmbRoomType.Text = "Values: Room  ,   Hall";
+            this.cmbRoomType.Text = "Select room type";
             this.cmbRoomType.SelectedIndexChanged += new System.EventHandler(this.cmbRoomType_SelectedIndexChanged);
             // 
             // btnDeleteRoom
@@ -94,9 +98,10 @@
             this.btnDeleteRoom.BackColor = System.Drawing.Color.Black;
             this.btnDeleteRoom.Font = new System.Drawing.Font("Forte", 9.75F);
             this.btnDeleteRoom.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnDeleteRoom.Location = new System.Drawing.Point(492, 308);
+            this.btnDeleteRoom.Location = new System.Drawing.Point(738, 474);
+            this.btnDeleteRoom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDeleteRoom.Name = "btnDeleteRoom";
-            this.btnDeleteRoom.Size = new System.Drawing.Size(69, 42);
+            this.btnDeleteRoom.Size = new System.Drawing.Size(104, 65);
             this.btnDeleteRoom.TabIndex = 5;
             this.btnDeleteRoom.Text = "DELETE";
             this.btnDeleteRoom.UseVisualStyleBackColor = false;
@@ -107,9 +112,10 @@
             this.btnUpdateRoom.BackColor = System.Drawing.Color.Black;
             this.btnUpdateRoom.Font = new System.Drawing.Font("Forte", 9.75F);
             this.btnUpdateRoom.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnUpdateRoom.Location = new System.Drawing.Point(492, 231);
+            this.btnUpdateRoom.Location = new System.Drawing.Point(738, 355);
+            this.btnUpdateRoom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnUpdateRoom.Name = "btnUpdateRoom";
-            this.btnUpdateRoom.Size = new System.Drawing.Size(69, 38);
+            this.btnUpdateRoom.Size = new System.Drawing.Size(104, 58);
             this.btnUpdateRoom.TabIndex = 6;
             this.btnUpdateRoom.Text = "UPDATE ";
             this.btnUpdateRoom.UseVisualStyleBackColor = false;
@@ -120,9 +126,10 @@
             this.btnAddRoom.BackColor = System.Drawing.Color.Black;
             this.btnAddRoom.Font = new System.Drawing.Font("Forte", 9.75F);
             this.btnAddRoom.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnAddRoom.Location = new System.Drawing.Point(492, 157);
+            this.btnAddRoom.Location = new System.Drawing.Point(738, 242);
+            this.btnAddRoom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAddRoom.Name = "btnAddRoom";
-            this.btnAddRoom.Size = new System.Drawing.Size(69, 35);
+            this.btnAddRoom.Size = new System.Drawing.Size(104, 54);
             this.btnAddRoom.TabIndex = 7;
             this.btnAddRoom.Text = "ADD ";
             this.btnAddRoom.UseVisualStyleBackColor = false;
@@ -132,10 +139,11 @@
             // 
             this.dgvRooms.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvRooms.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRooms.Location = new System.Drawing.Point(32, 157);
+            this.dgvRooms.Location = new System.Drawing.Point(48, 242);
+            this.dgvRooms.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgvRooms.Name = "dgvRooms";
             this.dgvRooms.RowHeadersWidth = 62;
-            this.dgvRooms.Size = new System.Drawing.Size(420, 193);
+            this.dgvRooms.Size = new System.Drawing.Size(630, 297);
             this.dgvRooms.TabIndex = 8;
             this.dgvRooms.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRooms_CellContentClick);
             this.dgvRooms.SelectionChanged += new System.EventHandler(this.ShowsRoomList);
@@ -143,10 +151,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(520, 31);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Location = new System.Drawing.Point(780, 48);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(53, 50);
+            this.pictureBox1.Size = new System.Drawing.Size(80, 77);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
@@ -156,19 +163,18 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Font = new System.Drawing.Font("Forte", 9.75F);
-            this.label1.Location = new System.Drawing.Point(504, 88);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(756, 135);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 14);
+            this.label1.Size = new System.Drawing.Size(129, 22);
             this.label1.TabIndex = 10;
             this.label1.Text = "Room Details";
             // 
             // RoomForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightPink;
-            this.ClientSize = new System.Drawing.Size(606, 371);
+            this.ClientSize = new System.Drawing.Size(909, 571);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dgvRooms);
@@ -180,6 +186,7 @@
             this.Controls.Add(this.RoomType);
             this.Controls.Add(this.Roomname);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "RoomForm";
             this.Text = "RoomForm";
             this.Load += new System.EventHandler(this.RoomForm_Load);

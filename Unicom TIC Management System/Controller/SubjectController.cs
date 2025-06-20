@@ -18,13 +18,13 @@ namespace Unicom_TIC_Management_System.Controller
         // Create a new Subject
         public void AddSubject(Subject subject)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO Subject (SubjectName, CourseID) VALUES (@SubjectName, @CourseID)";
-                cmd.Parameters.AddWithValue("@SubjectName", subject.SubjectName);
-                cmd.Parameters.AddWithValue("@CourseID", subject.CourseID);
-                cmd.ExecuteNonQuery();
+                var command = connect.CreateCommand();
+                command.CommandText = "INSERT INTO Subject (SubjectName, CourseID) VALUES (@SubjectName, @CourseID)";
+                command.Parameters.AddWithValue("@SubjectName", subject.SubjectName);
+                command.Parameters.AddWithValue("@CourseID", subject.CourseID);
+                command.ExecuteNonQuery();
             }
         }
 
@@ -33,19 +33,19 @@ namespace Unicom_TIC_Management_System.Controller
         {
             List<Subject> subjects = new List<Subject>();
 
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM Subject";
-                using (var reader = cmd.ExecuteReader())
+                var command = connect.CreateCommand();
+                command.CommandText = "SELECT * FROM Subject";
+                using (var read = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (read.Read())
                     {
                         subjects.Add(new Subject
                         {
-                            SubjectID = Convert.ToInt32(reader["SubjectID"]),
-                            SubjectName = reader["SubjectName"].ToString(),
-                            CourseID = Convert.ToInt32(reader["CourseID"])
+                            SubjectID = Convert.ToInt32(read["SubjectID"]),
+                            SubjectName = read["SubjectName"].ToString(),
+                            CourseID = Convert.ToInt32(read["CourseID"])
                         });
                     }
                 }
@@ -57,47 +57,47 @@ namespace Unicom_TIC_Management_System.Controller
         // UPDATE
         public void UpdateSubject(Subject subject)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE Subject SET SubjectName = @SubjectName, CourseID = @CourseID WHERE SubjectID = @SubjectID";
-                cmd.Parameters.AddWithValue("@SubjectName", subject.SubjectName);
-                cmd.Parameters.AddWithValue("@CourseID", subject.CourseID);
-                cmd.Parameters.AddWithValue("@SubjectID", subject.SubjectID);
-                cmd.ExecuteNonQuery();
+                var command = connect.CreateCommand();
+                command.CommandText = "UPDATE Subject SET SubjectName = @SubjectName, CourseID = @CourseID WHERE SubjectID = @SubjectID";
+                command.Parameters.AddWithValue("@SubjectName", subject.SubjectName);
+                command.Parameters.AddWithValue("@CourseID", subject.CourseID);
+                command.Parameters.AddWithValue("@SubjectID", subject.SubjectID);
+                command.ExecuteNonQuery();
             }
         }
 
         // DELETE
         public void DeleteSubject(int subjectId)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM Subject WHERE SubjectID = @SubjectID";
-                cmd.Parameters.AddWithValue("@SubjectID", subjectId);
-                cmd.ExecuteNonQuery();
+                var command = connect.CreateCommand();
+                command.CommandText = "DELETE FROM Subject WHERE SubjectID = @SubjectID";
+                command.Parameters.AddWithValue("@SubjectID", subjectId);
+                command.ExecuteNonQuery();
             }
         }
 
         // READ - Get Single Subject By ID
         public Subject GetSubjectById(int subjectId)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM Subject WHERE SubjectID = @SubjectID";
-                cmd.Parameters.AddWithValue("@SubjectID", subjectId);
+                var command = connect.CreateCommand();
+                command.CommandText = "SELECT * FROM Subject WHERE SubjectID = @SubjectID";
+                command.Parameters.AddWithValue("@SubjectID", subjectId);
 
-                using (var reader = cmd.ExecuteReader())
+                using (var read = command.ExecuteReader())
                 {
-                    if (reader.Read())
+                    if (read.Read())
                     {
                         return new Subject
                         {
-                            SubjectID = Convert.ToInt32(reader["SubjectID"]),
-                            SubjectName = reader["SubjectName"].ToString(),
-                            CourseID = Convert.ToInt32(reader["CourseID"])
+                            SubjectID = Convert.ToInt32(read["SubjectID"]),
+                            SubjectName = read["SubjectName"].ToString(),
+                            CourseID = Convert.ToInt32(read["CourseID"])
                         };
                     }
                 }

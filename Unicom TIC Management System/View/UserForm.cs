@@ -22,17 +22,17 @@ namespace Unicom_TIC_Management_System.View
             InitializeComponent();
  
 
-            cmbRole.Items.AddRange(new string[] { "Admin", "Staff" ,"Student" ,"Lecture" });
-            LoadUsers();
+            cmbRole.Items.AddRange(new string[] { "Admin", "Staff" , "Lecture" , "Student"  });
+            DisplayUsers();
         }
-        private void LoadUsers()
+        private void DisplayUsers()
         {
             try
             {
-                var courses = UserController.GetAllUsers();
-                dgvUsers.DataSource = courses;
+                var allcourses = UserController.GetAllUsers();
+                dgvUsers.DataSource = allcourses;
 
-                // Optional: Customize columns if needed, e.g. hide CourseID or rename headers
+                
                 dgvUsers.Columns["UserID"].HeaderText = "UserID";
                 dgvUsers.Columns["Username"].HeaderText = "Username ";
                 dgvUsers.Columns["Password"].HeaderText = "Password ";
@@ -41,11 +41,11 @@ namespace Unicom_TIC_Management_System.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to load courses: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error loading users: {ex.Message}", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void ClearForm()
+        private void ClearInput()
         {
             txtusername.Clear();
             txtPassword.Clear();
@@ -83,15 +83,15 @@ namespace Unicom_TIC_Management_System.View
             };
 
             UserController.AddUser(user);
-            LoadUsers();
-            ClearForm();
+            DisplayUsers();
+            ClearInput();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (selectedUserId == -1)
             {
-                MessageBox.Show("Please select a user to update.");
+                MessageBox.Show("No user selected for update.");
                 return;
             }
 
@@ -104,24 +104,24 @@ namespace Unicom_TIC_Management_System.View
             };
 
             UserController.UpdateUser(user);
-            LoadUsers();
-            ClearForm();
+            DisplayUsers();
+            ClearInput();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (selectedUserId == -1)
             {
-                MessageBox.Show("Please select a user to delete.");
+                MessageBox.Show("No user selected for deletion.");
                 return;
             }
 
-            var confirm = MessageBox.Show("Are you sure to delete this user?", "Confirm", MessageBoxButtons.YesNo);
+            var confirm = MessageBox.Show("Do you want to delete this user?", "Confirm", MessageBoxButtons.YesNo);
             if (confirm == DialogResult.Yes)
             {
                 UserController.DeleteUser(selectedUserId);
-                LoadUsers();
-                ClearForm();
+                DisplayUsers();
+                ClearInput();
             }
         }
 

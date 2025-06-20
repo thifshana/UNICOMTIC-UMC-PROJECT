@@ -20,9 +20,9 @@ namespace Unicom_TIC_Management_System.View
         public TimetableForm()
         {
             InitializeComponent();
-            LoadSubjects();
-            LoadRooms();
-            LoadTimetables();
+            DisplaySubjects();
+            DisplayRooms();
+            DisplayTimetables();
 
         }
 
@@ -77,7 +77,7 @@ namespace Unicom_TIC_Management_System.View
         private int selectedID = -1;
 
 
-        private void LoadSubjects()
+        private void DisplaySubjects()
         {
             cmbSubject.Items.Clear();
             using (var conn = DbConfig.GetConnection())
@@ -97,7 +97,7 @@ namespace Unicom_TIC_Management_System.View
             }
         }
 
-        private void LoadRooms()
+        private void DisplayRooms()
         {
             cmbRoom.Items.Clear();
             using (var conn = DbConfig.GetConnection())
@@ -117,7 +117,7 @@ namespace Unicom_TIC_Management_System.View
             }
         }
 
-        private void LoadTimetables()
+        private void DisplayTimetables()
         {
             dgvTimetable.DataSource = timetableController.GetAll();
         }
@@ -134,8 +134,8 @@ namespace Unicom_TIC_Management_System.View
                 };
 
                 timetableController.Create(timetable);
-                LoadTimetables();
-                ClearFields();
+                DisplayTimetables();
+                ClearInputs();
             }
         }
 
@@ -155,8 +155,8 @@ namespace Unicom_TIC_Management_System.View
                 };
 
                 timetableController.Update(timetable);
-                LoadTimetables();
-                ClearFields();
+                DisplayTimetables();
+                ClearInputs();
             }
         }
 
@@ -166,12 +166,12 @@ namespace Unicom_TIC_Management_System.View
             if (selectedID != -1)
             {
                 timetableController.Delete(selectedID);
-                LoadTimetables();
-                ClearFields();
+                DisplayTimetables();
+                ClearInputs();
             }
         }
 
-        private void ClearFields()
+        private void ClearInputs()
         {
             cmbSubject.SelectedIndex = -1;
             cmbRoom.SelectedIndex = -1;

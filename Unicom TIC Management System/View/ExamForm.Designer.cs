@@ -49,29 +49,32 @@
             this.lblExamName.BackColor = System.Drawing.Color.LightPink;
             this.lblExamName.Font = new System.Drawing.Font("Forte", 9.75F);
             this.lblExamName.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblExamName.Location = new System.Drawing.Point(26, 34);
+            this.lblExamName.Location = new System.Drawing.Point(39, 52);
+            this.lblExamName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblExamName.Name = "lblExamName";
-            this.lblExamName.Size = new System.Drawing.Size(82, 14);
+            this.lblExamName.Size = new System.Drawing.Size(125, 22);
             this.lblExamName.TabIndex = 0;
             this.lblExamName.Text = "Exam Name :";
             // 
             // txtExamName
             // 
             this.txtExamName.Font = new System.Drawing.Font("Forte", 9.75F);
-            this.txtExamName.Location = new System.Drawing.Point(129, 30);
+            this.txtExamName.Location = new System.Drawing.Point(194, 46);
+            this.txtExamName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtExamName.Name = "txtExamName";
-            this.txtExamName.Size = new System.Drawing.Size(332, 25);
+            this.txtExamName.Size = new System.Drawing.Size(496, 34);
             this.txtExamName.TabIndex = 1;
             // 
             // cmbSubjects
             // 
             this.cmbSubjects.Font = new System.Drawing.Font("Forte", 9.75F);
             this.cmbSubjects.FormattingEnabled = true;
-            this.cmbSubjects.Location = new System.Drawing.Point(129, 70);
+            this.cmbSubjects.Location = new System.Drawing.Point(194, 108);
+            this.cmbSubjects.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbSubjects.Name = "cmbSubjects";
-            this.cmbSubjects.Size = new System.Drawing.Size(332, 22);
+            this.cmbSubjects.Size = new System.Drawing.Size(496, 30);
             this.cmbSubjects.TabIndex = 2;
-            this.cmbSubjects.Text = "SubjectID + SubjectName";
+            this.cmbSubjects.Text = "Select SubjectID ";
             this.cmbSubjects.SelectedIndexChanged += new System.EventHandler(this.cmbSubjects_SelectedIndexChanged);
             // 
             // btnDeleteExam
@@ -79,9 +82,10 @@
             this.btnDeleteExam.BackColor = System.Drawing.Color.Black;
             this.btnDeleteExam.Font = new System.Drawing.Font("Forte", 9.75F);
             this.btnDeleteExam.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnDeleteExam.Location = new System.Drawing.Point(491, 279);
+            this.btnDeleteExam.Location = new System.Drawing.Point(736, 429);
+            this.btnDeleteExam.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDeleteExam.Name = "btnDeleteExam";
-            this.btnDeleteExam.Size = new System.Drawing.Size(70, 36);
+            this.btnDeleteExam.Size = new System.Drawing.Size(105, 55);
             this.btnDeleteExam.TabIndex = 3;
             this.btnDeleteExam.Text = "Delete";
             this.btnDeleteExam.UseVisualStyleBackColor = false;
@@ -92,9 +96,10 @@
             this.btnUpdateExam.BackColor = System.Drawing.Color.Black;
             this.btnUpdateExam.Font = new System.Drawing.Font("Forte", 9.75F);
             this.btnUpdateExam.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnUpdateExam.Location = new System.Drawing.Point(491, 199);
+            this.btnUpdateExam.Location = new System.Drawing.Point(736, 306);
+            this.btnUpdateExam.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnUpdateExam.Name = "btnUpdateExam";
-            this.btnUpdateExam.Size = new System.Drawing.Size(70, 36);
+            this.btnUpdateExam.Size = new System.Drawing.Size(105, 55);
             this.btnUpdateExam.TabIndex = 4;
             this.btnUpdateExam.Text = "Update";
             this.btnUpdateExam.UseVisualStyleBackColor = false;
@@ -105,9 +110,10 @@
             this.btnAddExam.BackColor = System.Drawing.Color.Black;
             this.btnAddExam.Font = new System.Drawing.Font("Forte", 9.75F);
             this.btnAddExam.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnAddExam.Location = new System.Drawing.Point(491, 126);
+            this.btnAddExam.Location = new System.Drawing.Point(736, 194);
+            this.btnAddExam.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAddExam.Name = "btnAddExam";
-            this.btnAddExam.Size = new System.Drawing.Size(70, 36);
+            this.btnAddExam.Size = new System.Drawing.Size(105, 55);
             this.btnAddExam.TabIndex = 5;
             this.btnAddExam.Text = "Add";
             this.btnAddExam.UseVisualStyleBackColor = false;
@@ -117,10 +123,11 @@
             // 
             this.dgvExams.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvExams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvExams.Location = new System.Drawing.Point(16, 126);
+            this.dgvExams.Location = new System.Drawing.Point(24, 194);
+            this.dgvExams.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgvExams.Name = "dgvExams";
             this.dgvExams.RowHeadersWidth = 62;
-            this.dgvExams.Size = new System.Drawing.Size(445, 189);
+            this.dgvExams.Size = new System.Drawing.Size(668, 291);
             this.dgvExams.TabIndex = 6;
             this.dgvExams.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dgvExams.SelectionChanged += new System.EventHandler(this.dgvExams_SelectionChanged);
@@ -131,9 +138,10 @@
             this.lblSubjectID.BackColor = System.Drawing.Color.LightPink;
             this.lblSubjectID.Font = new System.Drawing.Font("Forte", 9.75F);
             this.lblSubjectID.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblSubjectID.Location = new System.Drawing.Point(26, 72);
+            this.lblSubjectID.Location = new System.Drawing.Point(39, 111);
+            this.lblSubjectID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSubjectID.Name = "lblSubjectID";
-            this.lblSubjectID.Size = new System.Drawing.Size(73, 14);
+            this.lblSubjectID.Size = new System.Drawing.Size(112, 22);
             this.lblSubjectID.TabIndex = 7;
             this.lblSubjectID.Text = "Subject ID :";
             this.lblSubjectID.Click += new System.EventHandler(this.lblSubjectID_Click);
@@ -141,9 +149,10 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(530, 22);
+            this.pictureBox1.Location = new System.Drawing.Point(795, 34);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(47, 43);
+            this.pictureBox1.Size = new System.Drawing.Size(70, 66);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
@@ -153,19 +162,20 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Font = new System.Drawing.Font("Forte", 9.75F);
-            this.label1.Location = new System.Drawing.Point(513, 74);
+            this.label1.Location = new System.Drawing.Point(770, 114);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 14);
+            this.label1.Size = new System.Drawing.Size(125, 22);
             this.label1.TabIndex = 9;
             this.label1.Text = "Exam Detiles";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // ExamForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightPink;
-            this.ClientSize = new System.Drawing.Size(606, 371);
+            this.ClientSize = new System.Drawing.Size(909, 571);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblSubjectID);
@@ -179,6 +189,7 @@
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ExamForm";
             this.Text = "ExamForm";
             ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).EndInit();
