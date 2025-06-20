@@ -13,58 +13,58 @@ namespace Unicom_TIC_Management_System.Controller
         // Create a new Course
         public void Create(Course course)
         {
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "INSERT INTO Course (CourseName) VALUES (@CourseName)";
-                cmd.Parameters.AddWithValue("@CourseName", course.CourseName);
-                cmd.ExecuteNonQuery();
+                command.CommandText = "INSERT INTO Course (CourseName) VALUES (@CourseName)";
+                command.Parameters.AddWithValue("@CourseName", course.CourseName);
+                command.ExecuteNonQuery();
             }
         }
 
         // Read/Get all Courses
         public List<Course> GetAll()
         {
-            var courses = new List<Course>();
+            var newcourses = new List<Course>();
 
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "SELECT CourseID, CourseName FROM Course";
+                command.CommandText = "SELECT CourseID, CourseName FROM Course";
 
-                using (var reader = cmd.ExecuteReader())
+                using (var read = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (read.Read())
                     {
-                        courses.Add(new Course
+                        newcourses.Add(new Course
                         {
-                            CourseID = Convert.ToInt32(reader["CourseID"]),
-                            CourseName = reader["CourseName"].ToString()
+                            CourseID = Convert.ToInt32(read["CourseID"]),
+                            CourseName = read["CourseName"].ToString()
                         });
                     }
                 }
             }
 
-            return courses;
+            return newcourses;
         }
 
         // Read/Get Course by ID
         public Course GetById(int courseId)
         {
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "SELECT CourseID, CourseName FROM Course WHERE CourseID = @CourseID";
-                cmd.Parameters.AddWithValue("@CourseID", courseId);
+                command.CommandText = "SELECT CourseID, CourseName FROM Course WHERE CourseID = @CourseID";
+                command.Parameters.AddWithValue("@CourseID", courseId);
 
-                using (var reader = cmd.ExecuteReader())
+                using (var read = command.ExecuteReader())
                 {
-                    if (reader.Read())
+                    if (read.Read())
                     {
                         return new Course
                         {
-                            CourseID = Convert.ToInt32(reader["CourseID"]),
-                            CourseName = reader["CourseName"].ToString()
+                            CourseID = Convert.ToInt32(read["CourseID"]),
+                            CourseName = read["CourseName"].ToString()
                         };
                     }
                 }
@@ -75,14 +75,14 @@ namespace Unicom_TIC_Management_System.Controller
         // Update existing Course
         public bool Update(Course course)
         {
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "UPDATE Course SET CourseName = @CourseName WHERE CourseID = @CourseID";
-                cmd.Parameters.AddWithValue("@CourseName", course.CourseName);
-                cmd.Parameters.AddWithValue("@CourseID", course.CourseID);
+                command.CommandText = "UPDATE Course SET CourseName = @CourseName WHERE CourseID = @CourseID";
+                command.Parameters.AddWithValue("@CourseName", course.CourseName);
+                command.Parameters.AddWithValue("@CourseID", course.CourseID);
 
-                int rowsAffected = cmd.ExecuteNonQuery();
+                int rowsAffected = command.ExecuteNonQuery();
                 return rowsAffected > 0;
             }
         }
@@ -90,28 +90,28 @@ namespace Unicom_TIC_Management_System.Controller
         // Delete Course by ID
         public bool Delete(int courseId)
         {
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "DELETE FROM Course WHERE CourseID = @CourseID";
-                cmd.Parameters.AddWithValue("@CourseID", courseId);
+                command.CommandText = "DELETE FROM Course WHERE CourseID = @CourseID";
+                command.Parameters.AddWithValue("@CourseID", courseId);
 
-                int rowsAffected = cmd.ExecuteNonQuery();
+                int rowsAffected = command.ExecuteNonQuery();
                 return rowsAffected > 0;
             }
         }
         public List<Course> GetAllCourses()
         {
-            List<Course> courses = new List<Course>();
-            using (var conn = DbConfig.GetConnection())
+            List<Course> newcourses = new List<Course>();
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM Course";
-                using (var reader = cmd.ExecuteReader())
+                var command = connect.CreateCommand();
+                command.CommandText = "SELECT * FROM Course";
+                using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        courses.Add(new Course
+                        newcourses.Add(new Course
                         {
                             CourseID = Convert.ToInt32(reader["CourseID"]),
                             CourseName = reader["CourseName"].ToString()
@@ -119,7 +119,7 @@ namespace Unicom_TIC_Management_System.Controller
                     }
                 }
             }
-            return courses;
+            return newcourses;
         }
     }
 }

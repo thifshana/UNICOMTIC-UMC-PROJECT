@@ -11,13 +11,13 @@ namespace Unicom_TIC_Management_System.Controller
         // Create a new Exam
         public void Create(Exam exam)
         {
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "INSERT INTO Exam (ExamName, SubjectID) VALUES (@examName, @subjectId)";
-                cmd.Parameters.AddWithValue("@examName", exam.ExamName);
-                cmd.Parameters.AddWithValue("@subjectId", exam.SubjectID);
-                cmd.ExecuteNonQuery();
+                command.CommandText = "INSERT INTO Exam (ExamName, SubjectID) VALUES (@examName, @subjectId)";
+                command.Parameters.AddWithValue("@examName", exam.ExamName);
+                command.Parameters.AddWithValue("@subjectId", exam.SubjectID);
+                command.ExecuteNonQuery();
             }
         }
 
@@ -25,19 +25,19 @@ namespace Unicom_TIC_Management_System.Controller
         public List<Exam> GetAll()
         {
             var exams = new List<Exam>();
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "SELECT ExamID, ExamName, SubjectID FROM Exam";
-                using (var reader = cmd.ExecuteReader())
+                command.CommandText = "SELECT ExamID, ExamName, SubjectID FROM Exam";
+                using (var read = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (read.Read())
                     {
                         exams.Add(new Exam
                         {
-                            ExamID = Convert.ToInt32(reader["ExamID"]),
-                            ExamName = reader["ExamName"].ToString(),
-                            SubjectID = Convert.ToInt32(reader["SubjectID"])
+                            ExamID = Convert.ToInt32(read["ExamID"]),
+                            ExamName = read["ExamName"].ToString(),
+                            SubjectID = Convert.ToInt32(read["SubjectID"])
                         });
                     }
                 }
@@ -49,21 +49,21 @@ namespace Unicom_TIC_Management_System.Controller
         public Exam GetById(int examId)
         {
             Exam exam = null;
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "SELECT ExamID, ExamName, SubjectID FROM Exam WHERE ExamID = @id";
-                cmd.Parameters.AddWithValue("@id", examId);
+                command.CommandText = "SELECT ExamID, ExamName, SubjectID FROM Exam WHERE ExamID = @id";
+                command.Parameters.AddWithValue("@id", examId);
 
-                using (var reader = cmd.ExecuteReader())
+                using (var read = command.ExecuteReader())
                 {
-                    if (reader.Read())
+                    if (read.Read())
                     {
                         exam = new Exam
                         {
-                            ExamID = Convert.ToInt32(reader["ExamID"]),
-                            ExamName = reader["ExamName"].ToString(),
-                            SubjectID = Convert.ToInt32(reader["SubjectID"])
+                            ExamID = Convert.ToInt32(read["ExamID"]),
+                            ExamName = read["ExamName"].ToString(),
+                            SubjectID = Convert.ToInt32(read["SubjectID"])
                         };
                     }
                 }
@@ -74,14 +74,14 @@ namespace Unicom_TIC_Management_System.Controller
         // Update existing Exam
         public bool Update(Exam exam)
         {
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "UPDATE Exam SET ExamName = @examName, SubjectID = @subjectId WHERE ExamID = @id";
-                cmd.Parameters.AddWithValue("@examName", exam.ExamName);
-                cmd.Parameters.AddWithValue("@subjectId", exam.SubjectID);
-                cmd.Parameters.AddWithValue("@id", exam.ExamID);
-                cmd.ExecuteNonQuery();
+                command.CommandText = "UPDATE Exam SET ExamName = @examName, SubjectID = @subjectId WHERE ExamID = @id";
+                command.Parameters.AddWithValue("@examName", exam.ExamName);
+                command.Parameters.AddWithValue("@subjectId", exam.SubjectID);
+                command.Parameters.AddWithValue("@id", exam.ExamID);
+                command.ExecuteNonQuery();
                 return true;
             }
         }
@@ -89,12 +89,12 @@ namespace Unicom_TIC_Management_System.Controller
         // Delete Exam by ID
         public void Delete(int examId)
         {
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "DELETE FROM Exam WHERE ExamID = @id";
-                cmd.Parameters.AddWithValue("@id", examId);
-                cmd.ExecuteNonQuery();
+                command.CommandText = "DELETE FROM Exam WHERE ExamID = @id";
+                command.Parameters.AddWithValue("@id", examId);
+                command.ExecuteNonQuery();
             }
         }
     }

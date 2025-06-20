@@ -13,24 +13,24 @@ namespace Unicom_TIC_Management_System.Controller
         public static User AuthenticateUser(string username, string password, string role)
 
         {
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "SELECT * FROM User WHERE Username = @username AND Password = @password AND Role = @Role ";
-                cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@password", password);
-                cmd.Parameters.AddWithValue("@Role", role);
+                command.CommandText = "SELECT * FROM User WHERE Username = @username AND Password = @password AND Role = @Role ";
+                command.Parameters.AddWithValue("@username", username);
+                command.Parameters.AddWithValue("@password", password);
+                command.Parameters.AddWithValue("@Role", role);
 
-                using (var reader = cmd.ExecuteReader())
+                using (var read = command.ExecuteReader())
                 {
-                    if (reader.Read())
+                    if (read.Read())
                     {
                         return new User
                         {
-                            UserID = Convert.ToInt32(reader["UserID"]),
-                            Username = reader["Username"].ToString(),
-                            Password = reader["Password"].ToString(),
-                            Role = reader["Role"].ToString()
+                            UserID = Convert.ToInt32(read["UserID"]),
+                            Username = read["Username"].ToString(),
+                            Password = read["Password"].ToString(),
+                            Role = read["Role"].ToString()
                         };
                     }
                 }

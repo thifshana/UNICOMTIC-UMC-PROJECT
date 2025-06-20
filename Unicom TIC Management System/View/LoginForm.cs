@@ -24,13 +24,13 @@ namespace Unicom_TIC_Management_System.View
         private void btnLogin_Click(object sender, EventArgs e)
         {
 
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Text.Trim();
-            string selectedRole = comboBox1.SelectedItem?.ToString();
+            var username = txtUsername.Text.Trim();
+            var password = txtPassword.Text.Trim();
+            var selectedRole = comboBox1.SelectedItem?.ToString();
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(selectedRole))
             {
-                MessageBox.Show("Please fill in all fields.");
+                MessageBox.Show("All fields are required.");
                 return;
             }
 
@@ -46,14 +46,15 @@ namespace Unicom_TIC_Management_System.View
             }
             else
             {
-                MessageBox.Show("Invalid credentials or role. Please try again.");
+                MessageBox.Show("Login failed. Check your credentials and role.\", \"Access Denied\"");
             }
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
             comboBox1.Items.Clear();
-            comboBox1.Items.AddRange(new string[] { "select your role","Admin", "Staff", "Lecture", "Student" });
+            string[] roles = { "select your role", "Admin", "Staff", "Lecture", "Student" };
+            comboBox1.Items.AddRange(roles);
             comboBox1.SelectedIndex = 0; // default to Admin
         }
 
@@ -71,28 +72,26 @@ namespace Unicom_TIC_Management_System.View
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(role))
             {
-                MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please, Enter all login details..", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var user = UserController.AuthenticateUser(username, password, role);
+            var loggedUser = UserController.AuthenticateUser(username, password, role);
 
-            if (user != null)
+            if (loggedUser != null)
             {
-                MessageBox.Show($"Login successful as {user.Role}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Login successful as {loggedUser.Role}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // TODO: Redirect based on role
-                // Example:
-                // if (user.Role == "Admin") { new AdminForm().Show(); }
-                MainForm mainForm = new MainForm(user.Role); // pass user if needed
+              
+                MainForm mainForm = new MainForm(loggedUser.Role); // pass user if needed
                 mainForm.Show();
                 this.Hide();
-                //Application.Run(new MainForm());
+                
 
             }
             else
             {
-                MessageBox.Show("Invalid username, password, or role.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Incorrect credentials. Try again.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

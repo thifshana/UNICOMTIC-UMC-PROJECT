@@ -18,7 +18,7 @@ namespace Unicom_TIC_Management_System.View
         public ExamForm()
         {
             InitializeComponent();
-            LoadExams();
+            DisplayExams();
             LoadSubjects();
 
 
@@ -46,7 +46,7 @@ namespace Unicom_TIC_Management_System.View
 
             if (string.IsNullOrEmpty(examName) || cmbSubjects.SelectedItem == null)
             {
-                MessageBox.Show("Please enter valid exam name and select a subject.");
+                MessageBox.Show("You should enter valid exam name and select a subject.");
                 return;
             }
 
@@ -59,11 +59,11 @@ namespace Unicom_TIC_Management_System.View
             };
 
             examController.Create(exam);
-            MessageBox.Show("Exam added!");
-            LoadExams();
-            ClearForm();
+            MessageBox.Show("Exam added Successfully!");
+            DisplayExams();
+            Cleardetails();
         }
-        private void ClearForm()
+        private void Cleardetails()
         {
             txtExamName.Clear();
             cmbSubjects.SelectedIndex = -1;
@@ -80,7 +80,7 @@ namespace Unicom_TIC_Management_System.View
 
             if (string.IsNullOrEmpty(examName))
             {
-                MessageBox.Show("Please enter exam name.");
+                MessageBox.Show("Please, Enter exam name.");
                 return;
             }
 
@@ -93,14 +93,14 @@ namespace Unicom_TIC_Management_System.View
 
             ExamController ExamController = new ExamController();
             bool updated = examController.Update(exam);
-            MessageBox.Show(updated ? "Exam updated!" : "Update failed.");
-            LoadExams();
-            ClearForm();
+            MessageBox.Show(updated ? "Exam updated successfully!" : "Update failed.!");
+            DisplayExams();
+            Cleardetails();
         }
         private void ExamForm_Load(object sender, EventArgs e)
         {
             LoadSubjects();
-            LoadExams();
+            DisplayExams();
         }
 
         private void LoadSubjects()
@@ -111,7 +111,7 @@ namespace Unicom_TIC_Management_System.View
             cmbSubjects.DisplayMember = "SubjectName";
             cmbSubjects.ValueMember = "SubjectID";
         }
-        private void LoadExams()
+        private void DisplayExams()
         {
             ExamController ExamController = new ExamController();
             var exams = examController.GetAll();
@@ -135,11 +135,11 @@ namespace Unicom_TIC_Management_System.View
         {
             if (dgvExams.CurrentRow == null)
             {
-                MessageBox.Show("Please select an exam to delete.", "Delete Exam", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please you should select an exam to delete!.", "Deleted Exam", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            DialogResult confirm = MessageBox.Show("Are you sure you want to delete this exam?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult confirm = MessageBox.Show("Do you want to delete this exam?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm == DialogResult.Yes)
             {
                 int examId = Convert.ToInt32(dgvExams.CurrentRow.Cells["ExamID"].Value);
@@ -148,12 +148,12 @@ namespace Unicom_TIC_Management_System.View
                 {
                     examController.Delete(examId);
                     MessageBox.Show("Exam deleted successfully.");
-                    LoadExams();
-                    ClearForm();
+                    DisplayExams();
+                    Cleardetails();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error deleting exam: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Exam deleting faild!: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

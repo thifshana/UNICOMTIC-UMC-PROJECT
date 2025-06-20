@@ -19,8 +19,8 @@ namespace Unicom_TIC_Management_System.View
         public RoomForm()
         {
             InitializeComponent();
-            cmbRoomType.Items.AddRange(new string[] { "Lecture Hall" , "Mini Lab 01" , "Main Lab" , "Mini lab2" , "StaffRoom" , "OfficeRoom"});
-            LoadRooms();
+            cmbRoomType.Items.AddRange(new string[] { "Lecture Hall" , "Main Lab" ,"Mini Lab-01" ,  "Mini lab-02" , "StaffRoom" , "OfficeRoom"});
+            DisplayRooms();
         }
 
 
@@ -48,7 +48,7 @@ namespace Unicom_TIC_Management_System.View
             {
                 selectedRoomId = -1;
                 txtRoomName.Clear();
-                //  txtPassword.Clear();
+                
                 cmbRoomType.SelectedIndex = 0; // Optional default
 
             }
@@ -70,13 +70,13 @@ namespace Unicom_TIC_Management_System.View
 
                 if (string.IsNullOrWhiteSpace(txtRoomName.Text))
                 {
-                    MessageBox.Show("Please enter a Room Name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Room Name is required..", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (cmbRoomType.SelectedItem == null)
                 {
-                    MessageBox.Show("Please select a Room Type.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Please  choose a Room Type.", "Input  Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -92,22 +92,22 @@ namespace Unicom_TIC_Management_System.View
                 {
                     RoomController roomController = new RoomController();
                     roomController.Create(room);
-                    MessageBox.Show("Room added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Room successfully added!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     txtRoomName.Clear();
                     cmbRoomType.SelectedIndex = 0; // Reset selection
-                    LoadRooms();
+                    DisplayRooms();
                     ClearFields();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error adding room: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error occurred while adding room: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
 
         }
-        private void LoadRooms()
+        private void DisplayRooms()
         {
             RoomController roomController = new RoomController();
             var roomList = roomController.GetAll(); // Get all rooms from DB
@@ -137,19 +137,36 @@ namespace Unicom_TIC_Management_System.View
 
             if (selectedRoomId == -1)
             {
-                MessageBox.Show("Please select a room to update.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Select a room before updating.", " Alert", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(txtRoomName.Text) || cmbRoomType.SelectedItem == null)
             {
-                MessageBox.Show("Please fill all fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("All fields are mandatory.", "Input Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var result = MessageBox.Show("Are you sure you want to update this room?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var result = MessageBox.Show("Do you want to update this room?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.No) return;
+            var updatedRoom = new Room
+            {
+                RoomID = selectedRoomId,
+                RoomName = txtRoomName.Text.Trim(),
+                RoomType = cmbRoomType.SelectedItem.ToString()
+            };
 
+            try
+            {
+                roomController.Update(updatedRoom);
+                MessageBox.Show("Room updated.", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearFields();
+                DisplayRooms();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Update failed:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private RoomController roomController = new RoomController();
@@ -158,22 +175,22 @@ namespace Unicom_TIC_Management_System.View
             {
             if (dgvRooms.CurrentRow == null)
             {
-                MessageBox.Show("Please select a room to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No room selected.", " Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             int roomId = Convert.ToInt32(dgvRooms.CurrentRow.Cells["RoomID"].Value);
 
-            var result = MessageBox.Show("Are you sure you want to delete this room?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var result = MessageBox.Show("Do you want to delete this room?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 try
                 {
                     roomController.Delete(roomId);
                     MessageBox.Show("Room deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadRooms(); // refresh the DataGridView
+                    DisplayRooms(); // refresh the DataGridView
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Failed to delete the room: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Couldn't delete room: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }

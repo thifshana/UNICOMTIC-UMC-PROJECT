@@ -18,10 +18,10 @@ namespace Unicom_TIC_Management_System.View
         public MarkForm()
         {
             InitializeComponent();
-            LoadMarks();
+            DisplayMarks();
         }
         MarkController controller = new MarkController();
-        private  void LoadMarks()
+        private  void DisplayMarks()
         {
             MarkController markController = new MarkController();
             var marks = markController.GetAllMarks(); // ✅
@@ -35,7 +35,7 @@ namespace Unicom_TIC_Management_System.View
 
             try
             {
-                Mark mark = new Mark
+                Mark newmark = new Mark
                 {
                     StudentID = int.Parse(txtStudent.Text),
                     ExamID = int.Parse(txtExamID.Text),
@@ -43,15 +43,15 @@ namespace Unicom_TIC_Management_System.View
                 };
 
                 MarkController controller = new MarkController();
-                controller.AddMark(mark); // ✅ ADD instead of DELETE
+                controller.AddMark(newmark); // ✅ ADD instead of DELETE
 
-                LoadMarks();
-                ClearInputs();
+                DisplayMarks();
+                ClearDetails();
                 MessageBox.Show("Mark added successfully!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Unable to add mark: " + ex.Message);
             }
         }
 
@@ -61,11 +61,11 @@ namespace Unicom_TIC_Management_System.View
             {
                 try
                 {
-                    int markId = Convert.ToInt32(gridMark.CurrentRow.Cells["MarkID"].Value);
+                    int selectedId = Convert.ToInt32(gridMark.CurrentRow.Cells["MarkID"].Value);
 
                     Mark updatedMark = new Mark
                     {
-                        MarkID = markId,
+                        MarkID = selectedId,
                         StudentID = int.Parse(txtStudent.Text),
                         ExamID = int.Parse(txtExamID.Text),
                         Score = int.Parse(txtScore.Text)
@@ -74,13 +74,13 @@ namespace Unicom_TIC_Management_System.View
                     MarkController markController = new MarkController();
                     markController.UpdateMark(updatedMark); // ✅ Pass the mark object
 
-                    LoadMarks();
-                    ClearInputs();
-                    MessageBox.Show("Mark updated successfully!");
+                    DisplayMarks();
+                    ClearDetails();
+                    MessageBox.Show("Mark updated success-fully!");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Update failed: " + ex.Message);
+                    MessageBox.Show("Failed to update the mark: " + ex.Message);
                 }
             }
         }
@@ -94,11 +94,12 @@ namespace Unicom_TIC_Management_System.View
                 txtScore.Text = gridMark.CurrentRow.Cells["Score"].Value.ToString();
             }
         }
-        private void ClearInputs()
+        private void ClearDetails()
         {
             txtStudent.Clear();
-            txtExamID.Clear();
             txtScore.Clear();
+            txtExamID.Clear();
+            
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -112,18 +113,18 @@ namespace Unicom_TIC_Management_System.View
                     MarkController markController = new MarkController();
                     markController.DeleteMark(markId); // ✅ delete selected mark
 
-                    LoadMarks();
-                    ClearInputs();
-                    MessageBox.Show("Mark deleted successfully!");
+                    DisplayMarks();
+                    ClearDetails();
+                    MessageBox.Show("Mark deleted success-fully!");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Delete failed: " + ex.Message);
+                    MessageBox.Show("Could not delete the selected mark: " + ex.Message);
                 }
             }
             else
             {
-                MessageBox.Show("Please select a mark to delete.");
+                MessageBox.Show("Please, you should select a mark to delete.");
             }
         }
 

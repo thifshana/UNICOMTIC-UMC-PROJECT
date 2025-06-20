@@ -13,15 +13,15 @@ namespace Unicom_TIC_Management_System.Controller
     {
         public void AddMark(Mark mark)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
                 string query = "INSERT INTO Mark (StudentID, ExamID, Score) VALUES (@StudentID, @ExamID, @Score)";
-                using (var cmd = new SQLiteCommand(query, conn))
+                using (var command = new SQLiteCommand(query, connect))
                 {
-                    cmd.Parameters.AddWithValue("@StudentID", mark.StudentID);
-                    cmd.Parameters.AddWithValue("@ExamID", mark.ExamID);
-                    cmd.Parameters.AddWithValue("@Score", mark.Score);
-                    cmd.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@StudentID", mark.StudentID);
+                    command.Parameters.AddWithValue("@ExamID", mark.ExamID);
+                    command.Parameters.AddWithValue("@Score", mark.Score);
+                    command.ExecuteNonQuery();
                 }
             }
         }
@@ -31,20 +31,20 @@ namespace Unicom_TIC_Management_System.Controller
         {
             List<Mark> marks = new List<Mark>();
 
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
                 string query = "SELECT * FROM Mark";
-                using (var cmd = new SQLiteCommand(query, conn))
-                using (var reader = cmd.ExecuteReader())
+                using (var command = new SQLiteCommand(query, connect))
+                using (var read = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (read.Read())
                     {
                         marks.Add(new Mark
                         {
-                            MarkID = Convert.ToInt32(reader["MarkID"]),
-                            StudentID = Convert.ToInt32(reader["StudentID"]),
-                            ExamID = Convert.ToInt32(reader["ExamID"]),
-                            Score = Convert.ToInt32(reader["Score"])
+                            MarkID = Convert.ToInt32(read["MarkID"]),
+                            StudentID = Convert.ToInt32(read["StudentID"]),
+                            ExamID = Convert.ToInt32(read["ExamID"]),
+                            Score = Convert.ToInt32(read["Score"])
                         });
                     }
                 }
@@ -56,22 +56,22 @@ namespace Unicom_TIC_Management_System.Controller
         // READ - Get mark by ID
         public Mark GetMarkById(int id)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
                 string query = "SELECT * FROM Mark WHERE MarkID = @MarkID";
-                using (var cmd = new SQLiteCommand(query, conn))
+                using (var command = new SQLiteCommand(query, connect))
                 {
-                    cmd.Parameters.AddWithValue("@MarkID", id);
-                    using (var reader = cmd.ExecuteReader())
+                    command.Parameters.AddWithValue("@MarkID", id);
+                    using (var read = command.ExecuteReader())
                     {
-                        if (reader.Read())
+                        if (read.Read())
                         {
                             return new Mark
                             {
-                                MarkID = Convert.ToInt32(reader["MarkID"]),
-                                StudentID = Convert.ToInt32(reader["StudentID"]),
-                                ExamID = Convert.ToInt32(reader["ExamID"]),
-                                Score = Convert.ToInt32(reader["Score"])
+                                MarkID = Convert.ToInt32(read["MarkID"]),
+                                StudentID = Convert.ToInt32(read["StudentID"]),
+                                ExamID = Convert.ToInt32(read["ExamID"]),
+                                Score = Convert.ToInt32(read["Score"])
                             };
                         }
                     }
@@ -84,30 +84,30 @@ namespace Unicom_TIC_Management_System.Controller
         // UPDATE
         public void UpdateMark(Mark mark)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE Mark SET StudentID = @StudentID, ExamID = @ExamID, Score = @Score WHERE MarkID = @MarkID";
+                var command = connect.CreateCommand();
+                command.CommandText = "UPDATE Mark SET StudentID = @StudentID, ExamID = @ExamID, Score = @Score WHERE MarkID = @MarkID";
 
-                cmd.Parameters.AddWithValue("@StudentID", mark.StudentID);
-                cmd.Parameters.AddWithValue("@ExamID", mark.ExamID);
-                cmd.Parameters.AddWithValue("@Score", mark.Score);
-                cmd.Parameters.AddWithValue("@MarkID", mark.MarkID);
+                command.Parameters.AddWithValue("@StudentID", mark.StudentID);
+                command.Parameters.AddWithValue("@ExamID", mark.ExamID);
+                command.Parameters.AddWithValue("@Score", mark.Score);
+                command.Parameters.AddWithValue("@MarkID", mark.MarkID);
 
-                cmd.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             }
         }
 
         // DELETE
         public void DeleteMark(int id)
         {
-            using (var conn = DbConfig.GetConnection())
+            using (var connect = DbConfig.GetConnection())
             {
                 string query = "DELETE FROM Mark WHERE MarkID = @MarkID";
-                using (var cmd = new SQLiteCommand(query, conn))
+                using (var command = new SQLiteCommand(query, connect))
                 {
-                    cmd.Parameters.AddWithValue("@MarkID", id);
-                    cmd.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@MarkID", id);
+                    command.ExecuteNonQuery();
                 }
             }
         }

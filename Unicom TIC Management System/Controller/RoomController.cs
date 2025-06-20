@@ -14,13 +14,13 @@ namespace Unicom_TIC_Management_System.Controller
         // Create a new Room
         public void Create(Room room)
         {
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "INSERT INTO Room (RoomName, RoomType) VALUES (@name, @type)";
-                cmd.Parameters.AddWithValue("@name", room.RoomName);
-                cmd.Parameters.AddWithValue("@type", room.RoomType);
-                cmd.ExecuteNonQuery();
+                command.CommandText = "INSERT INTO Room (RoomName, RoomType) VALUES (@name, @type)";
+                command.Parameters.AddWithValue("@name", room.RoomName);
+                command.Parameters.AddWithValue("@type", room.RoomType);
+                command.ExecuteNonQuery();
             }
         }
 
@@ -29,12 +29,12 @@ namespace Unicom_TIC_Management_System.Controller
         {
             var rooms = new List<Room>();
 
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "SELECT RoomID, RoomName, RoomType FROM Room";
+                command.CommandText = "SELECT RoomID, RoomName, RoomType FROM Room";
 
-                using (var reader = cmd.ExecuteReader())
+                using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -56,13 +56,13 @@ namespace Unicom_TIC_Management_System.Controller
         {
             Room room = null;
 
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "SELECT RoomID, RoomName, RoomType FROM Room WHERE RoomID = @id";
-                cmd.Parameters.AddWithValue("@id", id);
+                command.CommandText = "SELECT RoomID, RoomName, RoomType FROM Room WHERE RoomID = @id";
+                command.Parameters.AddWithValue("@id", id);
 
-                using (var reader = cmd.ExecuteReader())
+                using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
                     {
@@ -82,26 +82,26 @@ namespace Unicom_TIC_Management_System.Controller
         // Update Room
         public void Update(Room room)
         {
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "UPDATE Room SET RoomName = @name, RoomType = @type WHERE RoomID = @id";
-                cmd.Parameters.AddWithValue("@name", room.RoomName);
-                cmd.Parameters.AddWithValue("@type", room.RoomType);
-                cmd.Parameters.AddWithValue("@id", room.RoomID);
-                cmd.ExecuteNonQuery();
+                command.CommandText = "UPDATE Room SET RoomName = @name, RoomType = @type WHERE RoomID = @id";
+                command.Parameters.AddWithValue("@name", room.RoomName);
+                command.Parameters.AddWithValue("@type", room.RoomType);
+                command.Parameters.AddWithValue("@id", room.RoomID);
+                command.ExecuteNonQuery();
             }
         }
 
         // Delete Room
         public void Delete(int id)
         {
-            using (var conn = DbConfig.GetConnection())
-            using (var cmd = conn.CreateCommand())
+            using (var connect = DbConfig.GetConnection())
+            using (var command = connect.CreateCommand())
             {
-                cmd.CommandText = "DELETE FROM Room WHERE RoomID = @id";
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.ExecuteNonQuery();
+                command.CommandText = "DELETE FROM Room WHERE RoomID = @id";
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
             }
         }
     }

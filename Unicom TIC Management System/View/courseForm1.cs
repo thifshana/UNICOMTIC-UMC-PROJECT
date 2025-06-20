@@ -18,12 +18,12 @@ namespace Unicom_TIC_Management_System.View
         public courseForm1()
         {
             InitializeComponent();
-            LoadCourses();
+            DisplayCourses();
         }
 
 
 
-        private void LoadCourses()
+        private void DisplayCourses()
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Unicom_TIC_Management_System.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to load courses: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Unable to load: {ex.Message}", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -53,9 +53,9 @@ namespace Unicom_TIC_Management_System.View
             courseController.Create(course);
 
             txtCourseName.Text = "";
-            MessageBox.Show("Succefully Added!");
+            MessageBox.Show("Course successfully inserted.!");
 
-            LoadCourses();
+            DisplayCourses();
 
         }
 
@@ -106,7 +106,7 @@ namespace Unicom_TIC_Management_System.View
                 if (updated)
                 {
                     MessageBox.Show("Course updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadCourses(); // Refresh DataGridView
+                    DisplayCourses(); // Refresh DataGridView
                     txtCourseName.Clear();
                 }
                 else
@@ -124,13 +124,13 @@ namespace Unicom_TIC_Management_System.View
         {
             if (view_all_course.CurrentRow == null)
             {
-                MessageBox.Show("Please select a course to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("you should select a course to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             int courseId = Convert.ToInt32(view_all_course.CurrentRow.Cells["CourseID"].Value);
 
-            var confirmResult = MessageBox.Show("Are you sure you want to delete this course?",
+            var confirmResult = MessageBox.Show("Do you want to delete this course?",
                                                 "Confirm Delete",
                                                 MessageBoxButtons.YesNo,
                                                 MessageBoxIcon.Question);
@@ -143,7 +143,7 @@ namespace Unicom_TIC_Management_System.View
                     if (deleted)
                     {
                         MessageBox.Show("Course deleted successfully.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LoadCourses();
+                        DisplayCourses();
                         txtCourseName.Clear();
                     }
                     else
