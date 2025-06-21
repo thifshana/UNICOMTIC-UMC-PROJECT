@@ -11,5 +11,10 @@ namespace Unicom_TIC_Management_System.Models
         public int StudentID { get; set; }       
         public string Name { get; set; }       
         public int CourseID { get; set; }       
+        public int NIC {  get; set; }
+        public DateTime Dateofbirth  { get; set; }
+        public string Guardian  { get; set; }
+        public int PhoneNB { get; set; } 
+        public string SpecificEDU { get; set; }
     }
 }

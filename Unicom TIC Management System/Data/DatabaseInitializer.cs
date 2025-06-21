@@ -51,6 +51,11 @@ namespace Unicom_TIC_Management_System.Data
                         StudentID INTEGER PRIMARY KEY AUTOINCREMENT,
                         Name TEXT NOT NULL,
                         CourseID INTEGER NOT NULL,
+                        Dateofbirth INTEGER NOT NULL, 
+                        NIC TEXT NOT NULL,
+                        PhoneNB INTEGER NOT NULL,
+                        Guardian TEXT NOT NULL,
+                        SpecificEDU TEXT NOT NULL,
                         
                         FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
                     );

@@ -17,6 +17,11 @@ namespace Unicom_TIC_Management_System.Controller
                 command.CommandText = "INSERT INTO Student (Name, CourseID) VALUES (@name, @courseId)";
                 command.Parameters.AddWithValue("@name", student.Name);
                 command.Parameters.AddWithValue("@courseId", student.CourseID);
+                command.Parameters.AddWithValue("@Dateofbirth", student.Dateofbirth);
+                command.Parameters.AddWithValue("@NIC", student.NIC);
+                command.Parameters.AddWithValue("@PhoneNB", student.PhoneNB);
+                command.Parameters.AddWithValue("@Guardian", student.Guardian);
+                command.Parameters.AddWithValue("@SpecificEDU", student.SpecificEDU);
                 command.ExecuteNonQuery();
             }
         }
@@ -39,7 +44,13 @@ namespace Unicom_TIC_Management_System.Controller
                         {
                             StudentID = Convert.ToInt32(reader["StudentID"]),
                             Name = reader["Name"].ToString(),
-                            CourseID = Convert.ToInt32(reader["CourseID"])
+                            CourseID = Convert.ToInt32(reader["CourseID"]),
+                            Dateofbirth = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(reader["Dateofbirth"])).DateTime,
+
+                            NIC = Convert.ToInt32(reader["NIC"]),
+                            PhoneNB = Convert.ToInt32(reader["PhoneNB"]),
+                            Guardian = reader["Guardian"].ToString(),
+                            SpecificEDU = reader["SpecificEDU"].ToString()
                         });
                     }
                 }
@@ -58,6 +69,11 @@ namespace Unicom_TIC_Management_System.Controller
                 command.Parameters.AddWithValue("@name", student.Name);
                 command.Parameters.AddWithValue("@courseId", student.CourseID);
                 command.Parameters.AddWithValue("@id", student.StudentID);
+                command.Parameters.AddWithValue("@Dateofbirth", student.Dateofbirth);
+                command.Parameters.AddWithValue("@NIC", student.NIC);
+                command.Parameters.AddWithValue("@PhoneNB", student.PhoneNB);
+                command.Parameters.AddWithValue("@Guardian", student.Guardian);
+                command.Parameters.AddWithValue("@SpecificEDU", student.SpecificEDU);
                 command.ExecuteNonQuery();
             }
         }
