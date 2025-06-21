@@ -15,6 +15,7 @@ namespace Unicom_TIC_Management_System.View
     public partial class courseForm1 : Form
     {
         private CourseController courseController = new CourseController();
+        string _role;
         public courseForm1()
         {
             InitializeComponent();
