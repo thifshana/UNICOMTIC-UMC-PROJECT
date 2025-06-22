@@ -32,12 +32,16 @@ namespace Unicom_TIC_Management_System.View
         private void dgvExams_SelectionChanged(object sender, EventArgs e)
         {
 
+            cmbSubjects.SelectedIndexChanged -= cmbSubjects_SelectedIndexChanged;
+
             if (dgvExams.CurrentRow != null)
             {
                 txtExamName.Text = dgvExams.CurrentRow.Cells["ExamName"].Value.ToString();
                 int selectedSubjectId = Convert.ToInt32(dgvExams.CurrentRow.Cells["SubjectID"].Value);
                 cmbSubjects.SelectedValue = selectedSubjectId;
             }
+
+            cmbSubjects.SelectedIndexChanged += cmbSubjects_SelectedIndexChanged;
         }
 
         private void btnAddExam_Click(object sender, EventArgs e)
@@ -120,15 +124,7 @@ namespace Unicom_TIC_Management_System.View
 
         private void cmbSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (dgvExams.CurrentRow != null)
-            {
-                txtExamName.Text = dgvExams.CurrentRow.Cells["ExamName"].Value.ToString();
-
-                if (int.TryParse(dgvExams.CurrentRow.Cells["SubjectID"].Value.ToString(), out int selectedSubjectId))
-                {
-                    cmbSubjects.SelectedValue = selectedSubjectId;
-                }
-            }
+           
         }
 
         private void btnDeleteExam_Click(object sender, EventArgs e)

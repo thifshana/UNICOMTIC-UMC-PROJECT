@@ -35,7 +35,7 @@ namespace Unicom_TIC_Management_System.View
         private int selectedRoomId = -1;
         private void ShowsRoomList(object sender, EventArgs e)
         {
-            dgvRooms.SelectionChanged += ShowsRoomList;
+            
 
             if (dgvRooms.CurrentRow != null && dgvRooms.CurrentRow.Index >= 0)
             {
@@ -56,11 +56,7 @@ namespace Unicom_TIC_Management_System.View
 
         private void txtRoomName_TextChanged(object sender, EventArgs e)
         {
-            if (dgvRooms.SelectedRows.Count > 0)
-            {
-                DataGridViewRow selectedRow = dgvRooms.SelectedRows[0];
-                txtRoomName.Text = selectedRow.Cells["RoomName"].Value?.ToString();
-            }
+            
         }
 
         private void btnAddRoom_Click(object sender, EventArgs e)
@@ -129,7 +125,13 @@ namespace Unicom_TIC_Management_System.View
 
         private void dgvRooms_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvRooms.Rows[e.RowIndex];
+                selectedRoomId = Convert.ToInt32(row.Cells["RoomID"].Value);
+                txtRoomName.Text = row.Cells["RoomName"].Value?.ToString();
+                cmbRoomType.SelectedItem = row.Cells["RoomType"].Value?.ToString();
+            }
         }
 
         private void btnUpdateRoom_Click(object sender, EventArgs e)
@@ -204,6 +206,8 @@ namespace Unicom_TIC_Management_System.View
 
         private void RoomForm_Load(object sender, EventArgs e)
         {
+            dgvRooms.SelectionChanged += ShowsRoomList;
+            this.txtRoomName.TextChanged += new System.EventHandler(this.txtRoomName_TextChanged);
 
         }
     }
