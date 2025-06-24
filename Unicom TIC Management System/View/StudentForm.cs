@@ -363,7 +363,7 @@ namespace Unicom_TIC_Management_System.View
                 NIC = int.Parse(NICtxt.Text),
                 PhoneNB = int.Parse(teletxt.Text),
                 SpecificEDU = SOEdu.Text,
-                Guardian = guardiantxt.Text
+                Guardian = guardiantxt.Text.Trim()
             };
 
             StudentController.AddStudent(student);
@@ -421,11 +421,12 @@ namespace Unicom_TIC_Management_System.View
                 selectedStudentID = Convert.ToInt32(dgvstudents.CurrentRow.Cells["StudentID"].Value);
                 txtStudentName.Text = dgvstudents.CurrentRow.Cells["Name"].Value?.ToString();
                 cmbCourse.Text = dgvstudents.CurrentRow.Cells["courseId"].Value?.ToString();
-                NICtxt.Text = dgvstudents.CurrentRow.Cells["Email"].Value?.ToString();
-                teletxt.Text = dgvstudents.CurrentRow.Cells["PhoneNumber"].Value?.ToString();
-                guardiantxt.Text = dgvstudents.CurrentRow.Cells["Gender"].Value?.ToString();
-                SOEdu.Text = dgvstudents.CurrentRow.Cells["Address"].Value?.ToString();
-                Picker.Value = Convert.ToDateTime(dgvstudents.CurrentRow.Cells["DateOfBirth"].Value);
+                NICtxt.Text = dgvstudents.CurrentRow.Cells["NIC"].Value?.ToString();
+                teletxt.Text = dgvstudents.CurrentRow.Cells["PhoneNB"].Value?.ToString();
+                guardiantxt.Text = dgvstudents.CurrentRow.Cells["Guardian"].Value?.ToString();
+                SOEdu.Text = dgvstudents.CurrentRow.Cells["SpecificEDU"].Value?.ToString();
+                Picker.Value = Convert.ToDateTime(dgvstudents.CurrentRow.Cells["Dateofbirth"].Value);
+
             }
             else
             {
@@ -450,7 +451,12 @@ namespace Unicom_TIC_Management_System.View
             {
                 StudentID = selectedStudentID,
                 Name = txtStudentName.Text,
-                CourseID = (int)cmbCourse.SelectedValue
+                CourseID = (int)cmbCourse.SelectedValue,
+                Dateofbirth = Picker.Value,
+                NIC = int.Parse(NICtxt.Text),
+                PhoneNB = int.Parse(teletxt.Text),
+                SpecificEDU = SOEdu.Text,
+                Guardian = guardiantxt.Text.Trim()
 
 
             };

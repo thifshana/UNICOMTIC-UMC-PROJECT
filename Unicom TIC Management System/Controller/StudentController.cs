@@ -13,18 +13,29 @@ namespace Unicom_TIC_Management_System.Controller
         {
             using (var connect = DbConfig.GetConnection())
             {
-                var command = connect.CreateCommand();
-                command.CommandText = "INSERT INTO Student (Name, CourseID) VALUES (@name, @courseId)";
-                command.Parameters.AddWithValue("@name", student.Name);
-                command.Parameters.AddWithValue("@courseId", student.CourseID);
-                command.Parameters.AddWithValue("@Dateofbirth", student.Dateofbirth);
-                command.Parameters.AddWithValue("@NIC", student.NIC);
-                command.Parameters.AddWithValue("@PhoneNB", student.PhoneNB);
-                command.Parameters.AddWithValue("@Guardian", student.Guardian);
-                command.Parameters.AddWithValue("@SpecificEDU", student.SpecificEDU);
-                command.ExecuteNonQuery();
+                try
+                {
+                    var command = connect.CreateCommand();
+                    command.CommandText = "INSERT INTO Student (Name, CourseID, Dateofbirth, NIC, PhoneNB, Guardian, SpecificEDU) " +
+                                          "VALUES (@name, @courseId, @Dateofbirth, @NIC, @PhoneNB, @Guardian, @SpecificEDU)";
+                    command.Parameters.AddWithValue("@name", student.Name);
+                    command.Parameters.AddWithValue("@courseId", student.CourseID);
+                    command.Parameters.AddWithValue("@Dateofbirth", student.Dateofbirth);
+                    command.Parameters.AddWithValue("@NIC", student.NIC);
+                    command.Parameters.AddWithValue("@PhoneNB", student.PhoneNB);
+                    command.Parameters.AddWithValue("@Guardian", student.Guardian);
+                    command.Parameters.AddWithValue("@SpecificEDU", student.SpecificEDU);
+
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error Adding Student: " + ex.Message);
+                    // Optionally log or show message box in UI
+                }
             }
         }
+
 
         // READ ALL
         public static List<Student> GetAllStudents()
@@ -34,7 +45,7 @@ namespace Unicom_TIC_Management_System.Controller
             using (var connect = DbConfig.GetConnection())
             {
                 var command = connect.CreateCommand();
-                command.CommandText = "SELECT StudentID, Name, CourseID FROM Student";
+                command.CommandText = "SELECT StudentID, Name, CourseID ,Dateofbirth , NIC ,PhoneNB, Guardian, SpecificEDU  FROM Student";
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -65,7 +76,7 @@ namespace Unicom_TIC_Management_System.Controller
             using (var connect = DbConfig.GetConnection())
             {
                 var command = connect.CreateCommand();
-                command.CommandText = "UPDATE Student SET Name = @name, CourseID = @courseId WHERE StudentID = @id";
+                command.CommandText = "UPDATE Student SET Name = @name, CourseID = @courseId , Dateofbirth = @Dateofbirth , NIC = @NIC , PhoneNB = @PhoneNB ,  Guardian = @Guardian , SpecificEDU = @SpecificEDU  WHERE StudentID = @id";
                 command.Parameters.AddWithValue("@name", student.Name);
                 command.Parameters.AddWithValue("@courseId", student.CourseID);
                 command.Parameters.AddWithValue("@id", student.StudentID);
